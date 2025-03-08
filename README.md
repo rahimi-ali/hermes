@@ -4,7 +4,7 @@ Swift messenger PHP framework with standardized interfaces, extreme customizabil
 seamless async support, and high performance.
 
 WARNING: This is still in very early stages, some core functionality is missing and
-tests are a work in progress as well so for now it is just a build in public concept. :)
+tests are a work in progress as well so for now it is just a "build in public" concept. :)
 
 ## Design goals
 
@@ -18,12 +18,12 @@ with existing tools.
 
 3. __Customizable Core:__
 There are clear interfaces that can be implemented however you like and replace
-existing first party components.
+existing first-party components.
 
 4. __Minimized Magic:__
-Magic(magic method, reflection, alike) make following the code in your editor harder,
+Magic(magic method, reflection, alike) makes following the code in your editor harder,
 reduce type safety and generally degrade performance therefore their use is avoided
-unless when absolutely necessary for a reasonable DevEx(e.g. reflection for DI autowiring).
+unless absolutely necessary for a reasonable DevEx(e.g. reflection for DI auto wiring).
 
 5. __Performance Priority:__
 Emphasizes performance by using abstractions judiciously, ensuring minimal overhead.
