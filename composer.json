@@ -1,0 +1,41 @@
+{
+    "name": "rahimi-ali/hermes",
+    "version": "0.0.0",
+    "type": "library",
+    "descrption": "Swift messenger PHP framework with standardized interfaces, extreme customizability, seamless async support, and high performance.",
+    "homepage": "https://github.com/rahimi-ali/hermes-php",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "RahimiAli\\Hermes\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ali Rahimi",
+            "email": "arahimihajiabadi@gmail.com",
+            "homepage": "https://github.com/rahimi-ali"
+        }
+    ],
+    "require": {
+        "php": "^8.4",
+        "ext-swoole": "^6.0",
+        "psr/http-message": "^2.0",
+        "psr/http-server-middleware": "^1.0",
+        "psr/http-server-handler": "^1.0",
+        "laminas/laminas-diactoros": "^3.5",
+        "psr/container": "^2.0",
+        "league/climate": "^3.10"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12.0",
+        "friendsofphp/php-cs-fixer": "^3.71",
+        "phpstan/phpstan": "^2.1"
+    },
+    "scripts": {
+        "fix": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer --config=.php-cs-fixer.php --allow-risky=yes fix",
+        "cs-check": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer --config=.php-cs-fixer.php --allow-risky=yes check",
+        "cs-check-diff": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer --config=.php-cs-fixer.php --allow-risky=yes --diff check",
+        "analyse": "./vendor/bin/phpstan analyse --memory-limit=2G"
+    }
+}
