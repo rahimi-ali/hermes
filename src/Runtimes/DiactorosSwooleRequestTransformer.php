@@ -24,8 +24,7 @@ class DiactorosSwooleRequestTransformer implements SwooleRequestTransformer
 
         $method = $swooleRequest->getMethod();
 
-        $content = is_string($swooleRequest->getContent()) ? $swooleRequest->getContent() : '';
-        $stream = new Stream($content, 'r');
+        $stream = new Stream($swooleRequest->getContent() ?: '', 'r');
         $stream->rewind();
 
         $headers = $swooleRequest->header ?? [];
@@ -82,7 +81,7 @@ class DiactorosSwooleRequestTransformer implements SwooleRequestTransformer
 
         if (isset($server['HTTP_HOST'])) {
             $parts = explode(':', $server['HTTP_HOST']);
-            $uri = count($parts) == 2
+            $uri = count($parts) === 2
                 ? $uri->withHost($parts[0])
                     ->withPort((int)$parts[1])
                 : $uri->withHost($server['HTTP_HOST']);

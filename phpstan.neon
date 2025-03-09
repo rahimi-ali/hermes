@@ -1,4 +1,14 @@
+includes:
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+
 parameters:
     level: 8
     paths:
         - src
+
+    rememberPossiblyImpureFunctionValues: false
+    strictRules:
+        disallowedShortTernary: false
+        booleansInConditions: false
+        uselessCast: false
+        disallowedEmpty: false
