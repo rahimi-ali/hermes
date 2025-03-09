@@ -17,6 +17,7 @@ $finder = Finder::create()
     ->ignoreVCS(true);
 
 $config = new Config()
+    ->setRiskyAllowed(true)
     ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
     ->setRules([
         '@PSR12' => true,

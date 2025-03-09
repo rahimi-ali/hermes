@@ -33,9 +33,9 @@
         "phpstan/phpstan": "^2.1"
     },
     "scripts": {
-        "fix": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer --config=.php-cs-fixer.php --allow-risky=yes fix",
-        "cs-check": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer --config=.php-cs-fixer.php --allow-risky=yes check",
-        "cs-check-diff": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer --config=.php-cs-fixer.php --allow-risky=yes --diff check",
+        "fix": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer --config=.php-cs-fixer.php fix",
+        "cs-check": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer --config=.php-cs-fixer.php check",
+        "cs-check-diff": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer --config=.php-cs-fixer.php --diff check",
         "analyse": "./vendor/bin/phpstan analyse --memory-limit=2G"
     }
 }
