@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RahimiAli\Hermes\Runtimes;
+namespace RahimiAli\Hermes\Runtimes\Swoole;
 
 use Laminas\Diactoros\ServerRequest;
 use Laminas\Diactoros\Stream;

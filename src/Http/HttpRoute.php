@@ -9,22 +9,22 @@ use Psr\Http\Server\MiddlewareInterface;
 
 interface HttpRoute
 {
-    public function name(): string;
+    public function getName(): string;
 
-    public function path(): string;
+    public function getPath(): string;
 
     /**
      * @return "DELETE"|"GET"|"HEAD"|"OPTIONS"|"PATCH"|"POST"|"PUT"
      */
-    public function method(): string;
+    public function getMethod(): string;
 
     /**
      * @return callable(mixed ...$args): ResponseInterface
      */
-    public function handler(): callable;
+    public function getHandler(): callable;
 
     /**
      * @return class-string<MiddlewareInterface>[]
      */
-    public function middleware(): array;
+    public function getMiddleware(): array;
 }

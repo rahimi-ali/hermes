@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace RahimiAli\Hermes\Http;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 interface HttpServer
@@ -21,4 +23,10 @@ interface HttpServer
     public function onWorkerShutdown(callable $callback): static;
 
     public function onRequest(RequestHandlerInterface $handler): static;
+
+    /**
+     * @param callable(ServerRequestInterface $request, ResponseInterface $response): void $callback
+     * @return $this
+     */
+    public function afterResponse(callable $callback): static;
 }

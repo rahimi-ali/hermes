@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace RahimiAli\Hermes\Runtimes;
+namespace RahimiAli\Hermes\Runtimes\Swoole;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use RahimiAli\Hermes\Http\HttpServer;
 use Swoole\Http\Request;
@@ -17,6 +19,11 @@ class SwooleHttpServer implements HttpServer
     private readonly Server $server;
 
     private readonly SwooleResponseEmitter $emitter;
+
+    /**
+     * @var (callable(ServerRequestInterface $request, ResponseInterface $response): void)|null
+     */
+    private $onResponseCallback = null;
 
     public function __construct(
         private readonly string $host,
@@ -57,9 +64,25 @@ class SwooleHttpServer implements HttpServer
     {
         $this->server->on('request', function (Request $request, Response $response) use ($handler): void {
             $psrRequest = $this->requestTransformer->transform($request);
+
             $psrResponse = $handler->handle($psrRequest);
-            $this->emitter->emit($psrResponse, $response, in_array($request->getMethod(), self::BODY_PROHIBITED_REQUEST_METHODS, true));
+
+            $emitted = $this->emitter->emit(
+                $psrResponse,
+                $response,
+                in_array($request->getMethod(), self::BODY_PROHIBITED_REQUEST_METHODS, true)
+            );
+
+            if ($emitted && $this->onResponseCallback !== null) {
+                call_user_func($this->onResponseCallback, $psrRequest, $psrResponse);
+            }
         });
+        return $this;
+    }
+
+    public function afterResponse(callable $callback): static
+    {
+        $this->onResponseCallback = $callback;
         return $this;
     }
 }
