@@ -9,7 +9,7 @@ use Psr\Container\ContainerInterface;
 
 interface ServiceContainer extends ContainerInterface
 {
-    public const string BINDING_TYPE_SIMPLE = 'simple';
+    public const string BINDING_TYPE_TRANSIENT = 'transient';
 
     public const string BINDING_TYPE_SINGLETON = 'singleton';
 

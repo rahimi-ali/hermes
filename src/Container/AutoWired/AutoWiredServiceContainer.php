@@ -51,7 +51,7 @@ class AutoWiredServiceContainer implements ConfigurableServiceContainer
     {
         foreach ($this->expandId($id) as $key) {
             $this->bindings[$key] = [
-                'bindingType' => ServiceContainer::BINDING_TYPE_SIMPLE,
+                'bindingType' => ServiceContainer::BINDING_TYPE_TRANSIENT,
                 'callback' => $callback,
             ];
         }
@@ -247,7 +247,7 @@ class AutoWiredServiceContainer implements ConfigurableServiceContainer
 
             $instance = call_user_func($binding['callback'], $this);
 
-            if ($binding['bindingType'] !== self::BINDING_TYPE_SIMPLE) {
+            if ($binding['bindingType'] !== self::BINDING_TYPE_TRANSIENT) {
                 $this->resolved[$id] = $instance;
             }
 
@@ -256,6 +256,12 @@ class AutoWiredServiceContainer implements ConfigurableServiceContainer
 
         if ($this->rootServiceContainer !== null) {
             try {
+                $boundOnParent = $this->rootServiceContainer->getBinding($id);
+                if ($boundOnParent !== null && $boundOnParent['bindingType'] === self::BINDING_TYPE_SCOPED_SINGLETON) {
+                    $this->bindings[$id] = $boundOnParent;
+                    return $this->resolve($id);
+                }
+
                 return $this->rootServiceContainer->get($id);
             } catch (NotFoundExceptionInterface) {
                 return new NotResolved();

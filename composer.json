@@ -28,20 +28,23 @@
         "psr/http-message": "^2.0",
         "psr/http-server-middleware": "^1.0",
         "psr/http-server-handler": "^1.0",
-        "laminas/laminas-diactoros": "^3.5",
         "psr/container": "^2.0",
+        "laminas/laminas-diactoros": "^3.5",
         "league/climate": "^3.10"
     },
     "require-dev": {
         "phpunit/phpunit": "^12.0",
         "friendsofphp/php-cs-fixer": "^3.71",
         "phpstan/phpstan": "^2.1",
-        "phpstan/phpstan-strict-rules": "^2.0"
+        "phpstan/phpstan-strict-rules": "^2.0",
+        "brianium/paratest": "^7.9"
     },
     "scripts": {
         "fix": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer --config=.php-cs-fixer.php fix",
         "cs-check": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer --config=.php-cs-fixer.php check",
         "cs-check-diff": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer --config=.php-cs-fixer.php --diff check",
-        "analyse": "./vendor/bin/phpstan analyse --memory-limit=2G"
+        "analyse": "./vendor/bin/phpstan analyse --memory-limit=2G",
+        "test": "php -d pcov.enabled=1 vendor/bin/paratest --passthru-php=\"'-d' 'pcov.enabled=1'\" --coverage-text",
+        "test-without-coverage": "vendor/bin/paratest"
     }
 }
