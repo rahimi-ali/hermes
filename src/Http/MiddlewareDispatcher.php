@@ -46,7 +46,6 @@ class MiddlewareDispatcher implements RequestHandlerInterface
 
         $middleware = $this->container->make($middlewareClass);
 
-        // @phpstan-ignore-next-line
         assert($middleware instanceof MiddlewareInterface, 'middleware is instance of MiddlewareInterface');
 
         return $middleware->process($request, $this);

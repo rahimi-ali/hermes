@@ -22,7 +22,7 @@ interface ConfigurableServiceContainer extends ServiceContainer
      * @param class-string<T>|string $id
      * @param callable(ServiceContainer $container): T $callback
      */
-    public function bindOnceForScope(string $id, callable $callback): static;
+    public function bindOncePerScope(string $id, callable $callback): static;
 
     /**
      * The callback is run once lazily(on request) and all later requests for the entry use that instance

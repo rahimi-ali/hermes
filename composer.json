@@ -10,6 +10,11 @@
             "RahimiAli\\Hermes\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Ali Rahimi",

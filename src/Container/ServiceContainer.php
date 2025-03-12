@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RahimiAli\Hermes\Container;
 
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 
 interface ServiceContainer extends ContainerInterface
@@ -19,21 +20,25 @@ interface ServiceContainer extends ContainerInterface
      *
      * @template C of object
      * @param class-string<C> $class
-     * @param array<string, mixed> $parameters
+     * @param array<string, mixed> $overrideParameters
      * @return C
+     * @throws ContainerExceptionInterface
      */
-    public function make(string $class, array $parameters = []): object;
+    public function make(string $class, array $overrideParameters = []): object;
 
     /**
-     * If a function or object method or static class method, It will call the function and resolve arguments using Type Based then Name Based Reflection
-     * If an instance class method, It will construct the class using Type Based then Name Based Reflection then call the method with same argument resolving strategy
+     * If a function or [object, static method] pair or static class method, It will call the function and resolve arguments
+     * using Type Based then Name Based Reflection
+     * If an instance [class, not static method] method, It will construct the class using Type Based then Name Based Reflection
+     * then call the method with same argument resolving strategy
      *
      * @template R
-     * @param callable(): R $callable
-     * @param array<string, mixed> $parameters
+     * @param array{class-string, string}|(callable(): R) $callable
+     * @param array<string, mixed> $overrideParameters
      * @return R
+     * @throws ContainerExceptionInterface
      */
-    public function call(callable $callable, array $parameters = []): mixed;
+    public function call(callable|array $callable, array $overrideParameters = []): mixed;
 
     /**
      * Get binding definition if any

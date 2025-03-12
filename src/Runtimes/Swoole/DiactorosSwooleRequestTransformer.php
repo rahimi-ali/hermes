@@ -11,6 +11,12 @@ use Laminas\Diactoros\Uri;
 use Psr\Http\Message\ServerRequestInterface;
 use Swoole\Http\Request;
 
+/**
+ * Transforms a swoole request to a ServerRequestInterface implemented by Diactoros
+ *
+ * @see https://docs.laminas.dev/laminas-diactoros Diactoros homepage
+ * @see https://github.com/razonyang/psr7-swoole Some others guy implementation of this that heavily influenced this implementation
+ */
 class DiactorosSwooleRequestTransformer implements SwooleRequestTransformer
 {
     public function transform(Request $swooleRequest): ServerRequestInterface
