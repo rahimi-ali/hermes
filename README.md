@@ -34,3 +34,11 @@ Leverages libraries and tools that are optimized for speed and efficiency.
 ```php
 // TODO: implement this!
 ```
+
+## Feature List
+
+- [x] Dependency Injection
+- [X] HTTP Server
+- [ ] CLI 
+- [ ] Queue System
+- [ ] WebSocket Server
