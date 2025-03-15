@@ -76,7 +76,7 @@ readonly class CLIMateHttpKernelDebugLogger implements HttpKernelDebugger
         string $workerId,
         string $requestId,
         ServerRequestInterface $request,
-        MatchedHttpRoute $matchedRoue,
+        MatchedHttpRoute|null $matchedRoue,
         ResponseInterface $response,
         int $responseTimeMicro,
     ): void {
@@ -87,7 +87,7 @@ readonly class CLIMateHttpKernelDebugLogger implements HttpKernelDebugger
             "#$requestId",
             'RESP',
             "{$request->getMethod()} {$request->getUri()->getPath()}",
-            $matchedRoue->getName(),
+            $matchedRoue?->getName() ?? 'NONE',
             "=> $statusCode",
             self::formatMicroseconds($responseTimeMicro),
         ];

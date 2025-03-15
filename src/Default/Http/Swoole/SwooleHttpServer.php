@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace RahimiAli\Hermes\Default\Http\Swoole;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use RahimiAli\Hermes\Core\Http\HttpServer;
 use Swoole\Http\Request;
@@ -19,11 +17,6 @@ class SwooleHttpServer implements HttpServer
     private readonly Server $server;
 
     private readonly SwooleResponseEmitter $emitter;
-
-    /**
-     * @var (callable(ServerRequestInterface $request, ResponseInterface $response): void)|null
-     */
-    private $onResponseCallback = null;
 
     public function __construct(
         private readonly string $host,
@@ -67,22 +60,12 @@ class SwooleHttpServer implements HttpServer
 
             $psrResponse = $handler->handle($psrRequest);
 
-            $emitted = $this->emitter->emit(
+            $this->emitter->emit(
                 $psrResponse,
                 $response,
                 in_array($request->getMethod(), self::BODY_PROHIBITED_REQUEST_METHODS, true)
             );
-
-            if ($emitted && $this->onResponseCallback !== null) {
-                call_user_func($this->onResponseCallback, $psrRequest, $psrResponse);
-            }
         });
-        return $this;
-    }
-
-    public function afterResponse(callable $callback): static
-    {
-        $this->onResponseCallback = $callback;
         return $this;
     }
 }

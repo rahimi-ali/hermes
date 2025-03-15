@@ -27,7 +27,7 @@ interface HttpKernelDebugger
         string $workerId,
         string $requestId,
         ServerRequestInterface $request,
-        MatchedHttpRoute $matchedRoue,
+        MatchedHttpRoute|null $matchedRoue,
         ResponseInterface $response,
         int $responseTimeMicro,
     ): void;

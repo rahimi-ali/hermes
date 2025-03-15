@@ -35,17 +35,6 @@ class HttpKernel implements RequestHandlerInterface
                     $this->kernelDebugger?->workerShutdown($this->workerId);
                 }
             );
-
-            $this->httpServer->afterResponse(function (ServerRequestInterface $request, ResponseInterface $response): void {
-                $this->kernelDebugger?->responseSent(
-                    $this->workerId,
-                    $request->getAttribute('unique_request_id', '-'),
-                    $request,
-                    $request->getAttribute('matched_route'),
-                    $response,
-                    (self::timeNano() - $request->getAttribute('request_received_time')) / 1000,
-                );
-            });
         }
     }
 
@@ -63,47 +52,48 @@ class HttpKernel implements RequestHandlerInterface
             $requestId = uniqid();
             $request = $request->withAttribute('unique_request_id', $requestId);
 
-            if ($this->kernelDebugger) {
-                $this->kernelDebugger->requestReceived(
-                    $this->workerId,
-                    $requestId,
-                    $request,
-                );
+            $this->kernelDebugger?->requestReceived(
+                $this->workerId,
+                $requestId,
+                $request,
+            );
 
-                $route = $this->httpRouter->match($request);
+            $route = $this->httpRouter->match($request);
 
-                $request = $request->withAttribute('matched_route', $route);
-                foreach ($route->getAttributes() as $name => $value) {
-                    $request = $request->withAttribute($name, $value);
-                }
-
-                $this->kernelDebugger->requestMatched(
-                    $this->workerId,
-                    $requestId,
-                    $request,
-                    $route,
-                    (self::timeNano() - $request->getAttribute('request_received_time')) / 1000,
-                );
-
-                $dispatcher = new MiddlewareDispatcher(
-                    $route->getMiddleware(),
-                    $route->getHandler(),
-                    $this->serviceContainer->newScopedInstance(),
-                );
-
-                return $dispatcher->handle($request);
-            } else {
-                $route = $this->httpRouter->match($request);
-
-                return new MiddlewareDispatcher(
-                    $route->getMiddleware(),
-                    $route->getHandler(),
-                    $this->serviceContainer->newScopedInstance(),
-                )->handle($request);
+            $request = $request->withAttribute('matched_route', $route);
+            foreach ($route->getAttributes() as $name => $value) {
+                $request = $request->withAttribute($name, $value);
             }
+
+            $this->kernelDebugger?->requestMatched(
+                $this->workerId,
+                $requestId,
+                $request,
+                $route,
+                (int)round((self::timeNano() - $request->getAttribute('request_received_time')) / 1000),
+            );
+
+            $dispatcher = new MiddlewareDispatcher(
+                $route->getMiddleware(),
+                $route->getHandler(),
+                $this->serviceContainer->newScopedInstance(),
+            );
+
+            $response = $dispatcher->handle($request);
         } catch (Throwable $exception) {
-            return $this->exceptionHandler->handle($request, $exception);
+            $response = $this->exceptionHandler->handle($request, $exception);
         }
+
+        $this->kernelDebugger?->responseSent(
+            $this->workerId,
+            $request->getAttribute('unique_request_id', '-'),
+            $request,
+            $request->getAttribute('matched_route'),
+            $response,
+            (int)round((self::timeNano() - $request->getAttribute('request_received_time')) / 1000),
+        );
+
+        return $response;
     }
 
     private static function timeNano(): int

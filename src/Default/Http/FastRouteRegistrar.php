@@ -24,6 +24,8 @@ class FastRouteRegistrar implements RouteRegistrar
         array $middleware = [],
         array $withoutMiddleware = [],
     ): ConfigurableRoute {
+        $path = '/' . trim($path, '/');
+
         $route = new Route(
             $method,
             $path,

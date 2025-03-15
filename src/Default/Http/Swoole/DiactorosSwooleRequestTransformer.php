@@ -30,21 +30,22 @@ class DiactorosSwooleRequestTransformer implements SwooleRequestTransformer
 
         $method = $swooleRequest->getMethod();
 
-        $stream = new Stream($swooleRequest->getContent() ?: '', 'r');
-        $stream->rewind();
+        $body = new Stream('php://memory', 'wb+');
+        $body->write($swooleRequest->getContent() ?: '');
+        $body->rewind();
 
         $headers = $swooleRequest->header ?? [];
 
         $cookies = $swooleRequest->cookie ?? [];
 
-        parse_str($server['QUERY_STRING'], $queryParams);
+        parse_str($server['QUERY_STRING'] ?? '', $queryParams);
 
         return new ServerRequest(
             serverParams: $server,
             uploadedFiles: $files,
             uri: $uri,
             method: $method,
-            body: $stream,
+            body: $body,
             headers: $headers,
             cookieParams: $cookies,
             queryParams: $queryParams,
