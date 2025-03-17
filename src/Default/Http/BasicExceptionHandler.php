@@ -14,6 +14,11 @@ use Throwable;
 
 class BasicExceptionHandler implements ExceptionHandler
 {
+    public function __construct(
+        private readonly bool $debug = false,
+    ) {
+    }
+
     public function handle(ServerRequestInterface $request, Throwable $exception): ResponseInterface
     {
         if ($exception instanceof NotFoundException) {
@@ -24,6 +29,14 @@ class BasicExceptionHandler implements ExceptionHandler
             return new JsonResponse(['message' => 'Method Not Allowed'], 405);
         }
 
+        if ($this->debug) {
+            return new JsonResponse(
+                [
+                    'message' => $exception->getMessage(),
+                ],
+                500,
+            );
+        }
         return new JsonResponse(['message' => 'Server Error'], 500);
     }
 }
