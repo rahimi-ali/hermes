@@ -141,7 +141,7 @@ class AutoWiredServiceContainer implements ConfigurableServiceContainer
         $this->resolutionStack[$class] = true;
         try {
             // If its bound use the binding
-            if ($bound = $this->resolve($class)) {
+            if (($bound = $this->resolve($class)) && !$bound instanceof NotResolved) {
                 return $bound;
             }
 
