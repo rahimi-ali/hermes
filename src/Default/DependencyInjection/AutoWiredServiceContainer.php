@@ -231,7 +231,7 @@ class AutoWiredServiceContainer implements ConfigurableServiceContainer
             $binding = $this->bindings[$id];
 
             assert(
-                $binding['bindingType'] !== self::BINDING_TYPE_SINGLETON && $this->rootServiceContainer === null,
+                $binding['bindingType'] !== self::BINDING_TYPE_SINGLETON || $this->rootServiceContainer === null,
                 'singleton binding should not be present in a non-root service container.',
             );
 
