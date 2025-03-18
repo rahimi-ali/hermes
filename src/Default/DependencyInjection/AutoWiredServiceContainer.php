@@ -251,7 +251,7 @@ class AutoWiredServiceContainer implements ConfigurableServiceContainer
         if ($this->rootServiceContainer !== null) {
             try {
                 $boundOnParent = $this->rootServiceContainer->getBinding($id);
-                if ($boundOnParent !== null && $boundOnParent['bindingType'] === self::BINDING_TYPE_SCOPED_SINGLETON) {
+                if ($boundOnParent !== null && $boundOnParent['bindingType'] !== self::BINDING_TYPE_SINGLETON) {
                     $this->bindings[$id] = $boundOnParent;
                     return $this->resolve($id);
                 }
