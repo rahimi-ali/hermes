@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hermes\Hermes\Core\Http;
+namespace HermesFramework\Hermes\Core\Http;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

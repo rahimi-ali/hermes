@@ -1,5 +1,5 @@
 {
-    "name": "hermes/hermes",
+    "name": "hermes-framework/hermes",
     "version": "0.0.0",
     "type": "library",
     "descrption": "Swift messenger PHP framework with standardized interfaces, extreme customizability, seamless async support, and high performance.",
@@ -7,7 +7,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Hermes\\Hermes\\": "src/"
+            "HermesFramework\\Hermes\\": "src/"
         }
     },
     "autoload-dev": {

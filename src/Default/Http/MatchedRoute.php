@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hermes\Hermes\Default\Http;
+namespace HermesFramework\Hermes\Default\Http;
 
-use Hermes\Hermes\Core\Http\MatchedHttpRoute;
+use HermesFramework\Hermes\Core\Http\MatchedHttpRoute;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\MiddlewareInterface;
 

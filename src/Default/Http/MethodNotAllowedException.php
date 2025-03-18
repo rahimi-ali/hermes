@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hermes\Hermes\Default\Http;
+namespace HermesFramework\Hermes\Default\Http;
 
 use Exception;
-use Hermes\Hermes\Core\Http\Exceptions\MethodNotAllowedException as MethodNotAllowedExceptionInterface;
+use HermesFramework\Hermes\Core\Http\Exceptions\MethodNotAllowedException as MethodNotAllowedExceptionInterface;
 
 class MethodNotAllowedException extends Exception implements MethodNotAllowedExceptionInterface
 {

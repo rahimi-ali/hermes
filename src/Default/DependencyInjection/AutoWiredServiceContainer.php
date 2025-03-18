@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Hermes\Hermes\Default\DependencyInjection;
+namespace HermesFramework\Hermes\Default\DependencyInjection;
 
-use Hermes\Hermes\Core\DependencyInjection\ConfigurableServiceContainer;
-use Hermes\Hermes\Core\DependencyInjection\ServiceContainer;
-use Hermes\Hermes\Default\DependencyInjection\Exceptions\CircularDependencyException;
-use Hermes\Hermes\Default\DependencyInjection\Exceptions\FailedToResolveParameterException;
-use Hermes\Hermes\Default\DependencyInjection\Exceptions\NotFoundException;
-use Hermes\Hermes\Default\DependencyInjection\Exceptions\UninstantiableClassException;
-use Hermes\Hermes\Default\DependencyInjection\Utils\InteractsWithReflection;
-use Hermes\Hermes\Default\DependencyInjection\Utils\NotResolved;
+use HermesFramework\Hermes\Core\DependencyInjection\ConfigurableServiceContainer;
+use HermesFramework\Hermes\Core\DependencyInjection\ServiceContainer;
+use HermesFramework\Hermes\Default\DependencyInjection\Exceptions\CircularDependencyException;
+use HermesFramework\Hermes\Default\DependencyInjection\Exceptions\FailedToResolveParameterException;
+use HermesFramework\Hermes\Default\DependencyInjection\Exceptions\NotFoundException;
+use HermesFramework\Hermes\Default\DependencyInjection\Exceptions\UninstantiableClassException;
+use HermesFramework\Hermes\Default\DependencyInjection\Utils\InteractsWithReflection;
+use HermesFramework\Hermes\Default\DependencyInjection\Utils\NotResolved;
 use InvalidArgumentException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Hermes\Hermes\Default\Http;
+namespace HermesFramework\Hermes\Default\Http;
 
 use FastRoute\Dispatcher;
 use FastRoute\Dispatcher\GroupCountBased as GroupCountBasedDispatcher;
-use Hermes\Hermes\Core\Http\HttpRouter;
-use Hermes\Hermes\Core\Http\MatchedHttpRoute;
+use HermesFramework\Hermes\Core\Http\HttpRouter;
+use HermesFramework\Hermes\Core\Http\MatchedHttpRoute;
 use Psr\Http\Message\ServerRequestInterface;
 use RuntimeException;
 

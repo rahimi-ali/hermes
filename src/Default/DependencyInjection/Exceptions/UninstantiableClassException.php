@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hermes\Hermes\Default\DependencyInjection\Exceptions;
+namespace HermesFramework\Hermes\Default\DependencyInjection\Exceptions;
 
 use Exception;
 use Psr\Container\ContainerExceptionInterface;

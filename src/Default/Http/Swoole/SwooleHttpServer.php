@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hermes\Hermes\Default\Http\Swoole;
+namespace HermesFramework\Hermes\Default\Http\Swoole;
 
-use Hermes\Hermes\Core\Http\HttpServer;
+use HermesFramework\Hermes\Core\Http\HttpServer;
 use Psr\Http\Server\RequestHandlerInterface;
 use Swoole\Http\Request;
 use Swoole\Http\Response;

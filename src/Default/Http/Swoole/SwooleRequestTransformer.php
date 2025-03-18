@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hermes\Hermes\Default\Http\Swoole;
+namespace HermesFramework\Hermes\Default\Http\Swoole;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Swoole\Http\Request;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hermes\Hermes\Core\Http;
+namespace HermesFramework\Hermes\Core\Http;
 
-use Hermes\Hermes\Core\Http\Exceptions\RouterException;
+use HermesFramework\Hermes\Core\Http\Exceptions\RouterException;
 use Psr\Http\Message\ServerRequestInterface;
 
 interface HttpRouter

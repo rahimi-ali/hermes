@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hermes\Hermes\Default\Http;
+namespace HermesFramework\Hermes\Default\Http;
 
-use Hermes\Hermes\Core\Http\ExceptionHandler;
-use Hermes\Hermes\Core\Http\Exceptions\MethodNotAllowedException;
-use Hermes\Hermes\Core\Http\Exceptions\NotFoundException;
+use HermesFramework\Hermes\Core\Http\ExceptionHandler;
+use HermesFramework\Hermes\Core\Http\Exceptions\MethodNotAllowedException;
+use HermesFramework\Hermes\Core\Http\Exceptions\NotFoundException;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

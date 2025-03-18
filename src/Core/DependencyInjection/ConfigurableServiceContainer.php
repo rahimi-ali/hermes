@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hermes\Hermes\Core\DependencyInjection;
+namespace HermesFramework\Hermes\Core\DependencyInjection;
 
 interface ConfigurableServiceContainer extends ServiceContainer
 {

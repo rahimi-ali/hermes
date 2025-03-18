@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hermes\Hermes\Core\Http;
+namespace HermesFramework\Hermes\Core\Http;
 
-use Hermes\Hermes\Core\DependencyInjection\ServiceContainer;
+use HermesFramework\Hermes\Core\DependencyInjection\ServiceContainer;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;

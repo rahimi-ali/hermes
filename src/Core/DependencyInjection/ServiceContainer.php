@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hermes\Hermes\Core\DependencyInjection;
+namespace HermesFramework\Hermes\Core\DependencyInjection;
 
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
