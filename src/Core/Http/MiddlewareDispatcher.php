@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace RahimiAli\Hermes\Core\Http;
+namespace Hermes\Hermes\Core\Http;
 
+use Hermes\Hermes\Core\DependencyInjection\ServiceContainer;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use RahimiAli\Hermes\Core\DependencyInjection\ServiceContainer;
 
 class MiddlewareDispatcher implements RequestHandlerInterface
 {

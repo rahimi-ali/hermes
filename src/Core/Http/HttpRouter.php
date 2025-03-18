@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace RahimiAli\Hermes\Core\Http;
+namespace Hermes\Hermes\Core\Http;
 
+use Hermes\Hermes\Core\Http\Exceptions\RouterException;
 use Psr\Http\Message\ServerRequestInterface;
-use RahimiAli\Hermes\Core\Http\Exceptions\RouterException;
 
 interface HttpRouter
 {

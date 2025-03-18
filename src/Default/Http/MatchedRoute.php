@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace RahimiAli\Hermes\Default\Http;
+namespace Hermes\Hermes\Default\Http;
 
+use Hermes\Hermes\Core\Http\MatchedHttpRoute;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\MiddlewareInterface;
-use RahimiAli\Hermes\Core\Http\MatchedHttpRoute;
 
 readonly class MatchedRoute implements MatchedHttpRoute
 {

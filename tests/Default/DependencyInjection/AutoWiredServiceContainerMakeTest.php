@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Container\AutoWired;
 
+use Hermes\Hermes\Core\DependencyInjection\ServiceContainer;
+use Hermes\Hermes\Default\DependencyInjection\AutoWiredServiceContainer;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use RahimiAli\Hermes\Core\DependencyInjection\ServiceContainer;
-use RahimiAli\Hermes\Default\DependencyInjection\AutoWiredServiceContainer;
 
 #[CoversClass(AutoWiredServiceContainer::class)]
 class AutoWiredServiceContainerMakeTest extends TestCase

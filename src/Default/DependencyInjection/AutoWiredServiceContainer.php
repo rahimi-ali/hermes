@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace RahimiAli\Hermes\Default\DependencyInjection;
+namespace Hermes\Hermes\Default\DependencyInjection;
 
+use Hermes\Hermes\Core\DependencyInjection\ConfigurableServiceContainer;
+use Hermes\Hermes\Core\DependencyInjection\ServiceContainer;
+use Hermes\Hermes\Default\DependencyInjection\Exceptions\CircularDependencyException;
+use Hermes\Hermes\Default\DependencyInjection\Exceptions\FailedToResolveParameterException;
+use Hermes\Hermes\Default\DependencyInjection\Exceptions\NotFoundException;
+use Hermes\Hermes\Default\DependencyInjection\Exceptions\UninstantiableClassException;
+use Hermes\Hermes\Default\DependencyInjection\Utils\InteractsWithReflection;
+use Hermes\Hermes\Default\DependencyInjection\Utils\NotResolved;
 use InvalidArgumentException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
-use RahimiAli\Hermes\Core\DependencyInjection\ConfigurableServiceContainer;
-use RahimiAli\Hermes\Core\DependencyInjection\ServiceContainer;
-use RahimiAli\Hermes\Default\DependencyInjection\Exceptions\CircularDependencyException;
-use RahimiAli\Hermes\Default\DependencyInjection\Exceptions\FailedToResolveParameterException;
-use RahimiAli\Hermes\Default\DependencyInjection\Exceptions\NotFoundException;
-use RahimiAli\Hermes\Default\DependencyInjection\Exceptions\UninstantiableClassException;
-use RahimiAli\Hermes\Default\DependencyInjection\Utils\InteractsWithReflection;
-use RahimiAli\Hermes\Default\DependencyInjection\Utils\NotResolved;
 use ReflectionException;
 use ReflectionFunction;
 use ReflectionIntersectionType;

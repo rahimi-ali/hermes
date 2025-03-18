@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RahimiAli\Hermes\Core\Http;
+namespace Hermes\Hermes\Core\Http;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\MiddlewareInterface;

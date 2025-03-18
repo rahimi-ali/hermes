@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace RahimiAli\Hermes\Default\Http;
+namespace Hermes\Hermes\Default\Http;
 
+use Hermes\Hermes\Core\Http\ExceptionHandler;
+use Hermes\Hermes\Core\Http\Exceptions\MethodNotAllowedException;
+use Hermes\Hermes\Core\Http\Exceptions\NotFoundException;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use RahimiAli\Hermes\Core\Http\ExceptionHandler;
-use RahimiAli\Hermes\Core\Http\Exceptions\MethodNotAllowedException;
-use RahimiAli\Hermes\Core\Http\Exceptions\NotFoundException;
 use Throwable;
 
 class BasicExceptionHandler implements ExceptionHandler

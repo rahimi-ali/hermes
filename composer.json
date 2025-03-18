@@ -1,13 +1,13 @@
 {
-    "name": "rahimi-ali/hermes",
+    "name": "hermes/hermes",
     "version": "0.0.0",
     "type": "library",
     "descrption": "Swift messenger PHP framework with standardized interfaces, extreme customizability, seamless async support, and high performance.",
-    "homepage": "https://github.com/rahimi-ali/hermes-php",
+    "homepage": "https://github.com/rahimi-ali/hermes",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "RahimiAli\\Hermes\\": "src/"
+            "Hermes\\Hermes\\": "src/"
         }
     },
     "autoload-dev": {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RahimiAli\Hermes\Default\DependencyInjection\Exceptions;
+namespace Hermes\Hermes\Default\DependencyInjection\Exceptions;
 
 use Exception;
 use Psr\Container\NotFoundExceptionInterface;

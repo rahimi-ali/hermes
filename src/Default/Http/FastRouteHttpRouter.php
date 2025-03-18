@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace RahimiAli\Hermes\Default\Http;
+namespace Hermes\Hermes\Default\Http;
 
 use FastRoute\Dispatcher;
 use FastRoute\Dispatcher\GroupCountBased as GroupCountBasedDispatcher;
+use Hermes\Hermes\Core\Http\HttpRouter;
+use Hermes\Hermes\Core\Http\MatchedHttpRoute;
 use Psr\Http\Message\ServerRequestInterface;
-use RahimiAli\Hermes\Core\Http\HttpRouter;
-use RahimiAli\Hermes\Core\Http\MatchedHttpRoute;
 use RuntimeException;
 
 class FastRouteHttpRouter implements HttpRouter

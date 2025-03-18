@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RahimiAli\Hermes\Default\DependencyInjection\Utils;
+namespace Hermes\Hermes\Default\DependencyInjection\Utils;
 
 /**
  * @internal

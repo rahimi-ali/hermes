@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace RahimiAli\Hermes\Default\Http\Swoole;
+namespace Hermes\Hermes\Default\Http\Swoole;
 
+use Hermes\Hermes\Core\Http\HttpServer;
 use Psr\Http\Server\RequestHandlerInterface;
-use RahimiAli\Hermes\Core\Http\HttpServer;
 use Swoole\Http\Request;
 use Swoole\Http\Response;
 use Swoole\Http\Server;
