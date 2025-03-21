@@ -35,6 +35,8 @@ Leverages libraries and tools that are optimized for speed and efficiency.
 // TODO: implement this!
 ```
 
+But you can get an idea of how things work by looking at the `example` directory.
+
 ## Feature List
 
 - [x] Dependency Injection
