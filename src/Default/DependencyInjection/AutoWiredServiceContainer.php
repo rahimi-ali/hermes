@@ -8,6 +8,7 @@ use HermesFramework\Hermes\Core\DependencyInjection\ConfigurableServiceContainer
 use HermesFramework\Hermes\Core\DependencyInjection\ServiceContainer;
 use HermesFramework\Hermes\Default\DependencyInjection\Exceptions\CircularDependencyException;
 use HermesFramework\Hermes\Default\DependencyInjection\Exceptions\FailedToResolveParameterException;
+use HermesFramework\Hermes\Default\DependencyInjection\Exceptions\InvalidCallableException;
 use HermesFramework\Hermes\Default\DependencyInjection\Exceptions\NotFoundException;
 use HermesFramework\Hermes\Default\DependencyInjection\Exceptions\UninstantiableClassException;
 use HermesFramework\Hermes\Default\DependencyInjection\Utils\InteractsWithReflection;
@@ -45,6 +46,11 @@ class AutoWiredServiceContainer implements ConfigurableServiceContainer
      */
     private array $resolutionStack = [];
 
+    /**
+     * @var array<string, string>
+     */
+    private array $aliases = [];
+
     final public function __construct(
         private readonly ConfigurableServiceContainer|null $rootServiceContainer = null,
     ) {
@@ -70,7 +76,7 @@ class AutoWiredServiceContainer implements ConfigurableServiceContainer
         unset($this->resolved[$id]);
 
         $callback = (is_string($callback) && class_exists($callback)) ?
-            fn (ServiceContainer $container) => $container->make($callback) :
+            static fn (ServiceContainer $container) => $container->make($callback) :
             $callback;
 
         $this->bindings[$id] = [
@@ -102,6 +108,22 @@ class AutoWiredServiceContainer implements ConfigurableServiceContainer
         return $this;
     }
 
+    public function alias(string $alias, string $origin): static
+    {
+        $this->aliases[$alias] = $origin;
+
+        return $this;
+    }
+
+    public function getAliasOrigin(string $alias): string|null
+    {
+        $id = $alias;
+        while ($origin = ($this->aliases[$id] ?? null)) {
+            $id = $origin;
+        }
+        return $id === $alias ? null : $id;
+    }
+
     public function get(string $id): mixed
     {
         $resolved = $this->resolved[$id] ?? $this->resolve($id);
@@ -116,6 +138,11 @@ class AutoWiredServiceContainer implements ConfigurableServiceContainer
         return array_key_exists($id, $this->resolved) ||
             array_key_exists($id, $this->bindings) ||
             ($this->rootServiceContainer?->has($id) ?? false);
+    }
+
+    public function hasResolved(string $id): bool
+    {
+        return array_key_exists($id, $this->resolved) || ($this->rootServiceContainer?->hasResolved($id) ?? false);
     }
 
     /**
@@ -178,7 +205,7 @@ class AutoWiredServiceContainer implements ConfigurableServiceContainer
                 /** @phpstan-ignore-next-line treating doc types as certain */
                 return $this->call([$this->make($callable[0]), $callable[1]], $overrideParameters);
             } else {
-                throw new InvalidArgumentException('callable must either be an actual callable or a [class, method] pair.');
+                throw new InvalidCallableException($callable);
             }
         }
 
@@ -214,7 +241,11 @@ class AutoWiredServiceContainer implements ConfigurableServiceContainer
 
     public function newScopedInstance(): static
     {
-        return new static($this);
+        $scoped = new static($this);
+        $scoped->bindOncePerScope(ServiceContainer::class, fn ($c) => $c);
+        $scoped->bindOncePerScope(ConfigurableServiceContainer::class, fn ($c) => $c);
+        $scoped->bindOncePerScope('container', fn ($c) => $c);
+        return $scoped;
     }
 
     /**
@@ -223,6 +254,14 @@ class AutoWiredServiceContainer implements ConfigurableServiceContainer
      */
     public function resolve(string $id): mixed
     {
+        if (array_key_exists($id, $this->aliases)) {
+            return $this->resolve($this->aliases[$id]);
+        }
+
+        if ($origin = $this->rootServiceContainer?->getAliasOrigin($id)) {
+            return $this->resolve($origin);
+        }
+
         if (array_key_exists($id, $this->resolved)) {
             return $this->resolved[$id];
         }
@@ -236,7 +275,7 @@ class AutoWiredServiceContainer implements ConfigurableServiceContainer
             );
 
             if (is_callable($binding['callback'])) {
-                $instance = $instance = call_user_func($binding['callback'], $this);
+                $instance = call_user_func($binding['callback'], $this);
             } else {
                 $instance = $binding['callback'];
             }

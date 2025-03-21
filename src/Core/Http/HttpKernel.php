@@ -18,7 +18,6 @@ class HttpKernel implements RequestHandlerInterface
         private readonly HttpServer $httpServer,
         private readonly HttpRouter $httpRouter,
         private readonly ServiceContainer $serviceContainer,
-        private readonly ExceptionHandler $exceptionHandler,
         private readonly HttpKernelDebugger|null $kernelDebugger = null,
     ) {
         if ($this->kernelDebugger) {
@@ -46,6 +45,7 @@ class HttpKernel implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $requestScopedContainer = $this->serviceContainer->newScopedInstance();
         try {
             $request = $request->withAttribute('request_received_time', self::timeNano());
 
@@ -76,12 +76,14 @@ class HttpKernel implements RequestHandlerInterface
             $dispatcher = new MiddlewareDispatcher(
                 $route->getMiddleware(),
                 $route->getHandler(),
-                $this->serviceContainer->newScopedInstance(),
+                $requestScopedContainer,
             );
 
             $response = $dispatcher->handle($request);
         } catch (Throwable $exception) {
-            $response = $this->exceptionHandler->handle($request, $exception);
+            $exceptionHandler = $requestScopedContainer->make(ExceptionHandler::class);
+            $response = $exceptionHandler->handle($request, $exception);
+            unset($exceptionHandler);
         }
 
         $this->kernelDebugger?->responseSent(
@@ -92,6 +94,10 @@ class HttpKernel implements RequestHandlerInterface
             $response,
             (int)round((self::timeNano() - $request->getAttribute('request_received_time')) / 1000),
         );
+
+        unset($dispatcher);
+        unset($route);
+        unset($requestScopedContainer);
 
         return $response;
     }

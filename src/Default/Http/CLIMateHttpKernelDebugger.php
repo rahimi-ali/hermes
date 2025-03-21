@@ -10,7 +10,7 @@ use League\CLImate\CLImate;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-readonly class CLIMateHttpKernelDebugLogger implements HttpKernelDebugger
+readonly class CLIMateHttpKernelDebugger implements HttpKernelDebugger
 {
     private const int COLS = 7;
 

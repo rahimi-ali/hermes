@@ -50,8 +50,12 @@ interface ServiceContainer extends ContainerInterface
      */
     public function getBinding(string $id): array|null;
 
+    public function getAliasOrigin(string $alias): string|null;
+
     /**
      * Returns a scoped instance of the container that has its own state to manage SCOPED bindings and forwards the rest to parent(this instance)
      */
     public function newScopedInstance(): static;
+
+    public function hasResolved(string $id): bool;
 }

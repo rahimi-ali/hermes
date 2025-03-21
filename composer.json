@@ -24,21 +24,29 @@
     ],
     "require": {
         "php": "^8.4",
-        "ext-swoole": "^6.0",
         "psr/http-message": "^2.0",
         "psr/http-server-middleware": "^1.0",
         "psr/http-server-handler": "^1.0",
-        "psr/container": "^2.0",
-        "laminas/laminas-diactoros": "^3.5",
-        "league/climate": "^3.10",
-        "nikic/fast-route": "^1.3"
+        "psr/container": "^2.0"
+
     },
     "require-dev": {
         "phpunit/phpunit": "^12.0",
         "friendsofphp/php-cs-fixer": "^3.71",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-strict-rules": "^2.0",
-        "brianium/paratest": "^7.9"
+        "brianium/paratest": "^7.9",
+        "filp/whoops": "^2.18",
+        "laminas/laminas-diactoros": "^3.5",
+        "league/climate": "^3.10",
+        "nikic/fast-route": "^1.3"
+    },
+    "suggest": {
+      "ext-swoole": "Unless you are implementing everything from scratch you would need version 6.0 of ext-swoole extension",
+      "laminas/laminas-diactoros": "Laminas Diactoros is used as the implementation of PSR Http interfaces along with the default swoole transformer components",
+      "filp/whoops": "If you intend to use the WhoopsExceptionHandler implemented as a default framework component for good looking error handling",
+      "league/climate": "CLIMate is required for nice cli outputs as implemented in the default CLIMateHttpKernelDebugger component",
+      "nikic/fast-route": "Fast Route written by the legendary Nikic is used as the actual router used by the default FastRouteHttpRouter component"
     },
     "scripts": {
         "fix": "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer --config=.php-cs-fixer.php fix",

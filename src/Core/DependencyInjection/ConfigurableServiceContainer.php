@@ -37,4 +37,6 @@ interface ConfigurableServiceContainer extends ServiceContainer
      * @param (callable(ServiceContainer $container): mixed)|class-string|mixed $callback
      */
     public function bindOnce(string $id, mixed $callback): static;
+
+    public function alias(string $alias, string $origin): static;
 }
