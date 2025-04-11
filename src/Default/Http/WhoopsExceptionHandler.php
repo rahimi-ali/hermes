@@ -12,6 +12,7 @@ use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Throwable;
+use Whoops\Exception\Frame;
 use Whoops\Handler\JsonResponseHandler;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
@@ -30,6 +31,9 @@ class WhoopsExceptionHandler implements ExceptionHandler
             $whoops = new Run();
             $whoops->allowQuit(false);
             $whoops->writeToOutput(false);
+            $whoops->addFrameFilter(function(Frame $frame) {
+                return !str_starts_with($frame->getFile(), '@swoole');
+            });
 
             if ($this->json) {
                 $whoops->pushHandler(new JsonResponseHandler());
