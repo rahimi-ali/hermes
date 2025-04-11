@@ -18,6 +18,9 @@ class SwooleHttpServer implements HttpServer
 
     private readonly SwooleResponseEmitter $emitter;
 
+    /**
+     * @param array<string, mixed> $extraOptions
+     */
     public function __construct(
         private readonly string $host,
         private readonly int $port,
@@ -25,9 +28,11 @@ class SwooleHttpServer implements HttpServer
         private readonly int|null $workerNum = null,
         private readonly int $maxUploadSize = 10 * 1024 * 1024,
         private readonly int $maxWorkerConcurrency = 4096,
+        array $extraOptions = [],
     ) {
         $this->server = new Server($this->host, $this->port, SWOOLE_BASE);
         $this->server->set([
+            ...$extraOptions,
             'worker_num' => $this->workerNum ?? swoole_cpu_num(),
             'upload_max_filesize' => $this->maxUploadSize,
             'worker_max_concurrency' => $this->maxWorkerConcurrency,

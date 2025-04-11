@@ -31,9 +31,7 @@ class WhoopsExceptionHandler implements ExceptionHandler
             $whoops = new Run();
             $whoops->allowQuit(false);
             $whoops->writeToOutput(false);
-            $whoops->addFrameFilter(function(Frame $frame) {
-                return !str_starts_with($frame->getFile(), '@swoole');
-            });
+            $whoops->addFrameFilter(fn (Frame $frame) => !str_starts_with($frame->getFile() ?? '', '@swoole'));
 
             if ($this->json) {
                 $whoops->pushHandler(new JsonResponseHandler());
